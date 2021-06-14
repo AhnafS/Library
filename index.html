@@ -13,9 +13,8 @@
     </header>
 
     <div id="allBooks">
-
       <div class="bookContainer" data-index="">
-        <img class="bookImg" src="images/no-image.jpeg" alt=""/>
+        <img class="bookImg" src="images/no-image.jpeg" alt="" />
         <h2 class="bookName bookInfo">Sample</h2>
         <h3 class="bookAuthor bookInfo">Sample</h3>
         <h3 class="bookPages bookInfo">100</h3>
@@ -23,7 +22,36 @@
         <button class="readButton bookButton">Update</button>
         <button class="deleteButton bookButton">Delete</button>
       </div>
+    </div>
 
+    <div id="popupForm" class="hide">
+      <form action="createBook">
+        <h2>Add New Book</h2>
+
+        <section>
+          <label for="title">Book Title:</label>
+          <input type="text" name="title" id="title" />
+        </section>
+
+        <section>
+          <label for="author">Book Author</label>
+          <input type="text" name="author" id="author" />
+        </section>
+
+        <section>
+            <label for="pages">Number of Pages</label>
+            <input type="number" name="pages" id="pages">
+        </section>
+
+        <section>
+          <label for="read">Finsihed Reading?</label>
+          <input type="checkbox" name="readStatus" id="read" />
+        </section>
+      </form>
+    </div>
+
+    <div id="addButtonContainer">
+      <h1 id="addButton">+</h1>
     </div>
 
     <!-- Script -->
