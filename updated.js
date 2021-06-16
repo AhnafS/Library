@@ -26,16 +26,11 @@ function createBook(){
     const url = popupForm.querySelector('#imgUrl').value;
     let read = popupForm.querySelector('#read').value;
 
-    (read.checked) ? read = 'Read'
-        : read = 'Unread';
-
-    console.log('value of read: ' + read);
+    (read.checked) ? read = 'Read' : read = 'Unread';
 
     let newBook = new Book(title, author, pages, url, read, bookIndex);
-
-    console.log(newBook);
-
     myLibrary.push(newBook);
+
     updateContainer(bookContainer);
 
     bookIndex++;
@@ -66,7 +61,7 @@ function updateContainer(container){
         console.log(book.read);
 
         addReadEvent(copyBook.querySelector('.readButton'));
-
+        addDeleteEvent(copyBook.querySelector('.deleteButton'));
         
 
         allBooks.appendChild(copyBook);
@@ -98,8 +93,22 @@ function addReadEvent(ele){
     })
 }
 
+function addDeleteEvent(ele){
+    ele.addEventListener('click', e => {
+        let bookIndex = e.target.parentNode.getAttribute('data-index');
+
+        let newLibrary = filterBook(bookIndex);
+        myLibrary = newLibrary;
+        updateContainer(bookContainer);
+    })
+}
+
 function findBook(index){
     return myLibrary.find(book => book.index == index);
+}
+
+function filterBook(index){
+    return myLibrary.filter(book => book.index != index);
 }
 
 // Active Objects
