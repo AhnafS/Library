@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri&display=swap');
+
 * {
     padding: 0;
     margin: 0;
+    font-family: 'El Messiri', sans-serif;
 }
 
 #addButton {
@@ -37,7 +40,6 @@ header {
     height: 100vh;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-gap: 10px;
     grid-template-rows: 500px;
     grid-auto-rows: 500px;
 }
@@ -52,17 +54,24 @@ header {
     flex-direction: column;
     display: none;
     overflow:scroll;
+    border-radius: 20px;
+    margin: 10px 10px 0 10px;
+    font-size: 1em;
 }
 
 .bookImg {
     width: 16em;
     height: 15em;
-    margin: 2em 0 1em 0;
+    margin: 0em 0 1em 0;
+    border-radius: 5px;
 }
 
 .bookButton {
-    font-size: 1em;
+    font-size: 1.1em;
     background-color: transparent;
+    width: 5em;
+    background-color: #9aadd8;
+    border-radius: 5px;
 }
 
 .bookInfo {
