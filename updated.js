@@ -2,7 +2,7 @@ let bookContainer = document.querySelector(".bookContainer");
 const allBooks = document.querySelector('#allBooks');
 const addButton = document.querySelector('#addButton');
 const popupForm = document.querySelector('#popupForm');
-let readButton = document.querySelector('.readButton');
+let readButton = document.querySelectorAll('.readButton');
 const submit = document.querySelector('#submitButton');
 let bookIndex = 1;
 
@@ -14,7 +14,7 @@ function Book (title, author, pages, url, read, index) {
     this.author = author;
     this.pages = pages;
     this.url = url;
-    this.reader = read;
+    this.read = read;
     this.index = index;
 }
 
@@ -24,16 +24,24 @@ function createBook(){
     const author = popupForm.querySelector('#author').value;
     const pages = popupForm.querySelector('#pages').value;
     const url = popupForm.querySelector('#imgUrl').value;
-    const read = popupForm.querySelector('#read').value;
+    let read = popupForm.querySelector('#read').value;
+
+    (read.checked) ? read = 'Read'
+        : read = 'Unread';
+
+    console.log('value of read: ' + read);
 
     let newBook = new Book(title, author, pages, url, read, bookIndex);
+
+    console.log(newBook);
+
     myLibrary.push(newBook);
     updateContainer(bookContainer);
 
     bookIndex++;
     clearForm();
     popupForm.classList.toggle('hide');
-
+    readButton = document.querySelectorAll('.readButton');
 }
 
 function resetGrid(){
@@ -45,7 +53,6 @@ function resetGrid(){
 function updateContainer(container){
 
     resetGrid();
-    console.log(myLibrary); 
     myLibrary.forEach(book => {
         let copyBook = container.cloneNode(true);
         copyBook.style.display = 'flex';
@@ -55,9 +62,12 @@ function updateContainer(container){
         copyBook.querySelector('.bookPages').textContent = book.pages;
         copyBook.querySelector('.bookImg').setAttribute('src', book.url);
         copyBook.setAttribute('data-index', book.index);
+        copyBook.querySelector('.readStatus').textContent = book.read;
+        console.log(book.read);
 
-        (book.read) ? copyBook.querySelector('.readStatus').textContent = 'Read'
-        : copyBook.querySelector('.readStatus').textContent = 'Unread';
+        addReadEvent(copyBook.querySelector('.readButton'));
+
+        
 
         allBooks.appendChild(copyBook);
     })
@@ -71,11 +81,36 @@ function clearForm(){
     });
 }
 
+function addReadEvent(ele){
+    ele.addEventListener('click', e => {
+        let read = e.target.parentNode;
+        let readStatus = read.querySelector('.readStatus');
+        let readIndex = read.getAttribute('data-index');
+        let book = findBook(readIndex)
+
+        if (book.read == 'Read'){
+            book.read = 'Unread';
+        } else {
+            book.read = 'Read';
+        }
+
+        updateContainer(bookContainer);
+    })
+}
+
+function findBook(index){
+    return myLibrary.find(book => book.index == index);
+}
+
+// Active Objects
+
 addButton.addEventListener('click', e => {
     popupForm.classList.toggle(('hide'));
 })
 
 submit.addEventListener('click', createBook);
+
+
 
 
 
