@@ -24,7 +24,7 @@ function createBook(){
     const author = popupForm.querySelector('#author').value;
     const pages = popupForm.querySelector('#pages').value;
     const url = popupForm.querySelector('#imgUrl').value;
-    let read = popupForm.querySelector('#read').value;
+    let read = popupForm.querySelector('#read');
 
     (read.checked) ? read = 'Read' : read = 'Unread';
 
