@@ -30,6 +30,7 @@ function createBook(){
 
     let newBook = new Book(title, author, pages, url, read, bookIndex);
     myLibrary.push(newBook);
+    updateLocalStorage();
 
     updateContainer(bookContainer);
 
@@ -58,7 +59,6 @@ function updateContainer(container){
         copyBook.querySelector('.bookImg').setAttribute('src', book.url);
         copyBook.setAttribute('data-index', book.index);
         copyBook.querySelector('.readStatus').textContent = book.read;
-        console.log(book.read);
 
         addReadEvent(copyBook.querySelector('.readButton'));
         addDeleteEvent(copyBook.querySelector('.deleteButton'));
@@ -89,6 +89,7 @@ function addReadEvent(ele){
             book.read = 'Read';
         }
 
+        updateLocalStorage();
         updateContainer(bookContainer);
     })
 }
@@ -99,6 +100,7 @@ function addDeleteEvent(ele){
 
         let newLibrary = filterBook(bookIndex);
         myLibrary = newLibrary;
+        updateLocalStorage();
         updateContainer(bookContainer);
     })
 }
@@ -120,6 +122,21 @@ addButton.addEventListener('click', e => {
 submit.addEventListener('click', createBook);
 
 
+// Storage
+
+function updateLocalStorage(){
+    localStorage.setItem('library', JSON.stringify(myLibrary));
+}
+
+function getLocal(){
+    myLibrary = JSON.parse(localStorage.getItem('library'));
+    if (myLibrary == null) {
+        myLibrary = [];
+    }
+    updateContainer(bookContainer);
+}
+
+getLocal();
 
 
 
